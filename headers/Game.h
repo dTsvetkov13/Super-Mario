@@ -2,6 +2,7 @@
 
 #include "../include/SDL2/include/SDL.h"
 #include "../include/SDL2_image/include/SDL_image.h"
+
 #include "Player.h"
 #include "BadTurtle.h"
 
@@ -15,6 +16,10 @@ struct SDLWindowDestroyer
 
 class Game
 {
+private:
+	SDL_Window* window;
+	SDL_Renderer* renderer;
+	bool isRunning = false;
 public:
 	Game();
 	~Game();
@@ -25,8 +30,4 @@ public:
 	void render();
 	void clean();
 	inline bool running() { return isRunning; }
-private:
-	SDL_Window* window;
-	SDL_Renderer* renderer;
-	bool isRunning = false;
 };

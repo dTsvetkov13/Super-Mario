@@ -5,7 +5,7 @@ project(SuperMario)
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
 
-set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake/modules/") 
+set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake/modules/")
 
 set(SOURCES
 	src/Game.cpp
@@ -32,6 +32,10 @@ set(SOURCES
 	headers/Camera.h
 	src/SeverusSnape.cpp
 	headers/SeverusSnape.h
+	include/tinyxml2/tinyxml2.h
+	include/tinyxml2/tinyxml2.cpp
+	src/Database.cpp
+	headers/Database.h
 )
 
 find_package(SDL2 REQUIRED)

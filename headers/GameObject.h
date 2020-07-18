@@ -4,16 +4,32 @@
 #include <map>
 #include <memory>
 #include <rpc.h>
+
 #include "../include/SDL2/include/SDL.h"
+#include "../include/tinyxml2/tinyxml2.h"
+
 #include "Component.h"
 #include "DrawingComponent.h"
 #include "../src/Enums.h"
+
+struct Cordinates
+{
+	double x = 0;
+	double y = 0;
+
+	Cordinates(double x, double y)
+	{
+		this->x = x;
+		this->y = y;
+	}
+};
 
 class GameObject
 {
 public:
 	GameObject();
-	GameObject(std::string &textureSheet, SDL_Renderer* ren, int startX, unsigned int heigthPartsCount, unsigned int widthPartsCount, double startsAt);
+	GameObject(const tinyxml2::XMLElement*, SDL_Renderer* ren);
+	GameObject(std::string &textureSheet, SDL_Renderer* ren, Cordinates cords, unsigned int heigthPartsCount, unsigned int widthPartsCount);
 	virtual ~GameObject();
 
 	virtual void Update();
@@ -27,6 +43,7 @@ public:
 	
 	void setTag(GameObjectTag tag) { this->tag = tag; }
 	void setId(std::shared_ptr<UUID>& id) { this->id = id; }
+	void init(std::string &textureSheet, SDL_Renderer* ren, Cordinates cords, unsigned int heigthPartsCount, unsigned int widthPartsCount);
 
 	const SDL_Rect* getDestRect();
 	const std::shared_ptr<UUID>& getId() { return id; }
@@ -35,7 +52,6 @@ public:
 	virtual const CollisionType getCollisionTypeWith(const Direction&, bool);
 private:
 	std::shared_ptr<UUID> id;
-	SDL_Renderer* ren;
 	double x;
 	double y;
 	unsigned int heightPartsCount = 0;

@@ -8,6 +8,7 @@
 #include "World.h"
 #include "Camera.h"
 #include "SeverusSnape.h"
+#include "Database.h"
 
 Game::Game()
 {
@@ -44,28 +45,34 @@ void Game::init(const char* title, int x, int y, int width, int height, bool ful
 		if (renderer)
 		{
 			SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
-			Map::Instance()->init(width * 2, height);
+			Map::Instance()->init(width * 2, height, 480);
 			std::string playerPng = "../assets/pictures/super-mario-run -2.png";
 			std::string badTurtleJpg = "../assets/pictures/bad-turtle.jpg";
 			std::string severusSnapePng = "../assets/pictures/severus-snape.png";
 
 			std::unique_ptr<Enemy> d;
-			std::unique_ptr<Player> player = std::make_unique<Player>(playerPng, renderer, Map::Instance()->getObjectSize() * 3, 2, 2, Map::Instance()->getGrassStartPixel() - Map::Instance()->getObjectSize());
-			d = std::make_unique<BadTurtle>(badTurtleJpg, renderer, 530, 1, 1, Map::Instance()->getGrassStartPixel(), 530);
-
+			std::unique_ptr<Player> player = std::make_unique<Player>(playerPng, renderer,
+				Cordinates(Map::Instance()->getObjectSize() * 3, (Map::Instance()->getGrassStartPixel()
+					- Map::Instance()->getObjectSize()) - Map::Instance()->getObjectSize() * 2)
+				, 2, 2);
+			d = std::make_unique<BadTurtle>(badTurtleJpg, renderer, Cordinates(530, Map::Instance()->getGrassStartPixel() - Map::Instance()->getObjectSize()), 1, 1, 530);
+			
 			World::Instance()->setPlayer(player);
-			World::Instance()->addEnemy(d);
+			//World::Instance()->addEnemy(d);
 
-			d = std::make_unique<BadTurtle>(badTurtleJpg, renderer, 210, 1, 1, Map::Instance()->getGrassStartPixel(), 220);
+			d = std::make_unique<BadTurtle>(badTurtleJpg, renderer, Cordinates(210, Map::Instance()->getGrassStartPixel() - Map::Instance()->getObjectSize()), 1, 1, 220);
 
-			World::Instance()->addEnemy(d);
+			//World::Instance()->addEnemy(d);
 
-			d = std::make_unique<SeverusSnape>(severusSnapePng, renderer, 1450, 4, 2, Map::Instance()->getGrassStartPixel());
+			d = std::make_unique<SeverusSnape>(severusSnapePng, renderer, Cordinates(1450, Map::Instance()->getGrassStartPixel() - 4 * Map::Instance()->getObjectSize()), 4, 2);
 
 			World::Instance()->addEnemy(d);
 
 			Camera::Instance()->init(0, 0, height, width);
 			Camera::Instance()->setWindowRect(x1, y1, height, width);
+
+			Database::Instance();
+			Database::Instance()->LoadGameObjects(renderer);
 		}
 
 		isRunning = true;

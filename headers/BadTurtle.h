@@ -15,11 +15,13 @@ private:
 public:
 	BadTurtle();
 	BadTurtle(const BadTurtle&);
-	BadTurtle(std::string &textureSheet, SDL_Renderer* ren, int startX,
-		unsigned int heigthPartsCount, unsigned int widthPartsCount,
-		double startsAt, double leftEdge);
+	BadTurtle(const tinyxml2::XMLElement*, SDL_Renderer*);
+	BadTurtle(std::string &textureSheet, SDL_Renderer* ren, Cordinates cords,
+		unsigned int heigthPartsCount, unsigned int widthPartsCount, double leftEdge);
 	~BadTurtle();
-
+	
+	void init(std::string &textureSheet, SDL_Renderer* ren, Cordinates cords,
+		unsigned int heigthPartsCount, unsigned int widthPartsCount, double leftEdge);
 	void Update() override;
 	void Move() override;
 	const CollisionType getCollisionTypeWith(const Direction&, bool) override;

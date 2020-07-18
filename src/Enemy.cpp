@@ -10,8 +10,13 @@ Enemy::Enemy(const Enemy& enemy)
 
 }
 
-Enemy::Enemy(std::string &textureSheet, SDL_Renderer* ren, int startX, unsigned int heigthPartsCount, unsigned int widthPartsCount, double startsAt)
-	: GameObject(textureSheet, ren, startX, heigthPartsCount, widthPartsCount, startsAt)
+Enemy::Enemy(const tinyxml2::XMLElement *, SDL_Renderer *)
+{
+
+}
+
+Enemy::Enemy(std::string &textureSheet, SDL_Renderer* ren, Cordinates cords, unsigned int heigthPartsCount, unsigned int widthPartsCount)
+	: GameObject(textureSheet, ren, cords, heigthPartsCount, widthPartsCount)
 {
 	setTag(GameObjectTag::Enemy);
 }

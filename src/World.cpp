@@ -205,6 +205,7 @@ bool World::PlayerCollision(const SDL_Rect& dest1, const Direction& direction)
 			{
 				player.get()->DecreaseLives(1);
 				player.get()->GoToStartPos();
+				std::cout << "PLAYER KILLED" << std::endl;
 				break;
 			}
 			case(CollisionType::ReceiveDamage):

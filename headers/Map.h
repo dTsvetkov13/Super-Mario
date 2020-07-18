@@ -5,6 +5,8 @@
 #include "Enums.h"
 #include "GameObject.h"
 
+#include "../include/tinyxml2/tinyxml2.h"
+
 class Map
 {
 private:
@@ -18,7 +20,8 @@ public:
 	~Map();
 
 	static Map* Instance();
-	void init(int width, int heigth);
+	void init(const tinyxml2::XMLElement*);
+	void init(int width, int heigth, int grassStartY = 0);
 	int getObjectSize();
 	int getMapHeigth();
 	int getMapWidth();

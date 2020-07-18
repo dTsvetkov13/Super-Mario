@@ -1,6 +1,7 @@
 #pragma once
 
 #include "GameObject.h"
+#include <string>
 
 class Player : public GameObject
 {
@@ -25,10 +26,12 @@ private:
 	void ValidatePosition();
 public:
 	Player();
+	Player(const tinyxml2::XMLElement*, SDL_Renderer* ren);
 	Player(const Player&);
-	Player(std::string &path, SDL_Renderer* ren, int startX, unsigned int heightParts, unsigned int widthParts, int startPartsAbove);
+	Player(std::string &path, SDL_Renderer* ren, Cordinates cords, unsigned int heightParts, unsigned int widthParts);
 	~Player() override;
 
+	void init(std::string &textureSheet, SDL_Renderer* ren, Cordinates cords, unsigned int heigthPartsCount, unsigned int widthPartsCount);
 	void handleEvent(SDL_Event &event);
 	void writingMove(SDL_Event &event);
 	void checkTheMouseCords(SDL_Event &event);

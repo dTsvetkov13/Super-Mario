@@ -9,8 +9,8 @@ SeverusSnape::SeverusSnape()
 
 }
 
-SeverusSnape::SeverusSnape(std::string & textureSheet, SDL_Renderer * ren, int startX, unsigned int heigthPartsCount, unsigned int widthPartsCount, double startsAt) :
-	Enemy(textureSheet, ren, startX, heigthPartsCount, widthPartsCount, startsAt)
+SeverusSnape::SeverusSnape(std::string & textureSheet, SDL_Renderer * ren, Cordinates cords, unsigned int heigthPartsCount, unsigned int widthPartsCount) :
+	Enemy(textureSheet, ren, cords, heigthPartsCount, widthPartsCount)
 {
 }
 

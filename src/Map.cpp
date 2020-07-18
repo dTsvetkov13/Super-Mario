@@ -29,7 +29,17 @@ Map* Map::Instance()
 	return instance;
 }
 
-void Map::init(int width, int heigth)
+void Map::init(const tinyxml2::XMLElement *xmlElement)
+{
+	int width = std::stoi(xmlElement->FirstChildElement("width")->GetText());
+	int height = std::stoi(xmlElement->FirstChildElement("height")->GetText());
+
+	int grassStartY = std::stoi(xmlElement->FirstChildElement("grassStartX")->GetText());
+
+	init(width, height, grassStartY);
+}
+
+void Map::init(int width, int heigth, int grassStartY)
 {
 	map.resize(heigth / objectSize);
 
@@ -38,7 +48,7 @@ void Map::init(int width, int heigth)
 		it.resize(width / objectSize);
 	}
 
-	grassStartPixel = (3 * (int)map.size()) / 4;
+	grassStartPixel = grassStartY / objectSize;
 
 	for (int i = 0; i < grassStartPixel; i++)
 	{

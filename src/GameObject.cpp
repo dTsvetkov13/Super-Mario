@@ -9,21 +9,28 @@ GameObject::GameObject()
 
 }
 
-GameObject::GameObject(std::string &textureSheet, SDL_Renderer* ren, int startX, unsigned int heightPartsCount, unsigned int widthPartsCount, double startsAt)
+GameObject::GameObject(const tinyxml2::XMLElement *xmlElement, SDL_Renderer* ren)
 {
-	this->x = startX;
-	this->y = startsAt - (Map::Instance()->getObjectSize() * heightPartsCount);
-	this->ren = ren;
+
+}
+
+GameObject::GameObject(std::string &textureSheet, SDL_Renderer* ren, Cordinates cords, unsigned int heightPartsCount, unsigned int widthPartsCount)
+{
+	this->init(textureSheet, ren, cords, heightPartsCount, widthPartsCount);
+}
+
+void GameObject::init(std::string &textureSheet, SDL_Renderer* ren, Cordinates cords, unsigned int heightPartsCount, unsigned int widthPartsCount)
+{
+	this->x = cords.x;
+	this->y = cords.y;
 	this->heightPartsCount = heightPartsCount;
 	this->widthPartsCount = widthPartsCount;
-	drawingComponent = std::make_unique<DrawingComponent>();
+	this->drawingComponent = std::make_unique<DrawingComponent>();
 	drawingComponent->init(textureSheet, ren, heightPartsCount, widthPartsCount);
 }
 
-
 GameObject::~GameObject()
 {
-	ren = nullptr;
 }
 
 void GameObject::Update()

@@ -10,24 +10,49 @@ Player::Player()
 
 }
 
+Player::Player(const tinyxml2::XMLElement *xmlElement, SDL_Renderer* ren)
+{
+	double x = std::stod(xmlElement->FirstChildElement("x")->GetText());
+	double y = std::stod(xmlElement->FirstChildElement("y")->GetText());
+
+	unsigned int heightParts = std::stoi(xmlElement->FirstChildElement("heightPartsCount")->GetText());
+	unsigned int widthParts = std::stoi(xmlElement->FirstChildElement("widthPartsCount")->GetText());
+
+	lives = std::stoi(xmlElement->FirstChildElement("lives")->GetText());
+
+	std::string path = "../assets/pictures/super-mario-run -2.png";
+
+	std::cout << "X: " << x << ", y: " << y << std::endl;
+
+	init(path, ren, Cordinates(x, y), heightParts, widthParts);
+	GameObject::init(path, ren, Cordinates(x, y), heightParts, widthParts);
+
+	std::cout << "X: " << getX() << ", y: " << getY() << std::endl;
+}
+
 Player::Player(const Player& player)
 {
 	
 }
 
-Player::Player(std::string &path, SDL_Renderer* ren, int startX, unsigned int heightParts, unsigned int widthParts, int startPartsAbove)
-	: GameObject(path, ren, startX, heightParts, widthParts, startPartsAbove)
+Player::Player(std::string &path, SDL_Renderer* ren, Cordinates cords, unsigned int heightParts, unsigned int widthParts)
+	: GameObject(path, ren, cords, heightParts, widthParts)
+{
+	this->init(path, ren, cords, heightParts, widthParts);
+}
+
+Player::~Player()
+{
+}
+
+void Player::init(std::string & textureSheet, SDL_Renderer * ren, Cordinates cords, unsigned int heightParts, unsigned int widthParts)
 {
 	jumpLength = 1.75 * heightParts * Map::Instance()->getObjectSize();
 	setTag(GameObjectTag::Player);
 	heart = std::make_unique<DrawingComponent>();
 	heart->init("../assets/pictures/heart.png", ren, 1, 1);
-	this->startX = startX;
-	this->startY = startPartsAbove - (Map::Instance()->getObjectSize() * heightParts);;
-}
-
-Player::~Player()
-{
+	this->startX = cords.x;
+	this->startY = cords.y;
 }
 
 void Player::handleEvent(SDL_Event &event)

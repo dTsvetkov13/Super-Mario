@@ -12,7 +12,7 @@ private:
 	void SayAPhrase(std::string&, SDL_Renderer*);
 public:
 	SeverusSnape();
-	SeverusSnape(std::string &textureSheet, SDL_Renderer* ren, int startX, unsigned int heigthPartsCount, unsigned int widthPartsCount, double startsAt);
+	SeverusSnape(std::string &textureSheet, SDL_Renderer* ren, Cordinates cords, unsigned int heigthPartsCount, unsigned int widthPartsCount);
 	~SeverusSnape();
 
 	bool InRange(const SDL_Rect*) override;
