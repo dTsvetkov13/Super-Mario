@@ -7,6 +7,10 @@ set(CMAKE_CXX_STANDARD_REQUIRED True)
 
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake/modules/")
 
+set(SDL2DIR "D:/Dev/SDL2")
+set(SDL2IMAGEDIR "D:/Dev/SDL2_image")
+set(SDL2TTFDIR "D:/Dev/SDL2_tff")
+
 set(SOURCES
 	src/Game.cpp
 	src/main.cpp
