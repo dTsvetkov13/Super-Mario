@@ -57,11 +57,15 @@ void Player::init(std::string & textureSheet, SDL_Renderer * ren, Cordinates cor
 
 void Player::handleEvent(SDL_Event &event)
 {
-	if (event.type == SDL_MOUSEMOTION) //&&  event.type == SDL_MOUSEBUTTONDOWN
+	if (event.key.keysym.sym == SDLK_t)
 	{
-		checkTheMouseCords(event);
+		writing = true;
 	}
-	else if(writing)
+	else if (event.key.keysym.sym == SDLK_RETURN)
+	{
+		writing = false;
+	}
+	else if(writing && World::Instance()->IsShowingTextArea())
 	{
 		velocityX = 0;
 		writingMove(event);
@@ -72,24 +76,6 @@ void Player::handleEvent(SDL_Event &event)
 		moveEvent(event);
 	}
 
-}
-
-void Player::checkTheMouseCords(SDL_Event & event)
-{
-	int xMouse, yMouse;
-	SDL_GetGlobalMouseState(&xMouse, &yMouse);
-
-	if (event.button.button == SDL_BUTTON_LEFT)
-	{
-		if (World::Instance()->InTheTextArea(xMouse, yMouse))
-		{
-			writing = true;
-		}
-		else
-		{
-			writing = false;
-		}
-	}
 }
 
 void Player::writingMove(SDL_Event& event)
@@ -107,8 +93,6 @@ void Player::writingMove(SDL_Event& event)
 
 void Player::moveEvent(SDL_Event& event)
 {
-	//TODO: modify the cases for the same problem
-
 	switch (event.type)
 	{
 	case SDL_KEYUP:
@@ -135,9 +119,7 @@ void Player::moveEvent(SDL_Event& event)
 		{
 			if (!isJumping && m_onGround)
 			{
-				targetJump = getY() - jumpLength;
-				isJumping = true;
-				m_onGround = false;
+				Player::Jump();
 			}
 			break;
 		}
@@ -282,6 +264,13 @@ void Player::Render(SDL_Renderer* ren)
 {
 	GameObject::Render(ren);
 	DrawLives(ren);
+}
+
+void Player::Jump()
+{
+	isJumping = true;
+	m_onGround = false;
+	targetJump = getY() - jumpLength;
 }
 
 void Player::IncreaseLives(int number)
