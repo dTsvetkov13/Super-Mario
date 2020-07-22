@@ -107,6 +107,8 @@ void Player::writingMove(SDL_Event& event)
 
 void Player::moveEvent(SDL_Event& event)
 {
+	//TODO: modify the cases for the same problem
+
 	switch (event.type)
 	{
 	case SDL_KEYUP:
@@ -114,29 +116,10 @@ void Player::moveEvent(SDL_Event& event)
 		switch (event.key.keysym.sym)
 		{
 		case SDLK_UP:
-		{
-			break;
-		}
 		case SDLK_d:
-		{
-			velocityX = 0;
-			break;
-		}
 		case SDLK_a:
-		{
-			velocityX = 0;
-			break;
-		}
 		case SDLK_RIGHT:
-		{
-			velocityX = 0;
-			break;
-		}
 		case SDLK_LEFT:
-		{
-			velocityX = 0;
-			break;
-		}
 		default:
 			velocityX = 0;
 			break;
@@ -148,15 +131,6 @@ void Player::moveEvent(SDL_Event& event)
 		switch (event.key.keysym.sym)
 		{
 		case SDLK_UP:
-		{
-			if (!isJumping && m_onGround)
-			{
-				targetJump = getY() - jumpLength;
-				isJumping = true;
-				m_onGround = false;
-			}
-			break;
-		}
 		case SDLK_w:
 		{
 			if (!isJumping && m_onGround)
@@ -168,43 +142,6 @@ void Player::moveEvent(SDL_Event& event)
 			break;
 		}
 		case SDLK_d:
-		{
-			if (isJumping || !m_onGround)
-			{
-				sideVelocityDirection = Direction::Right;
-				velocityX = speed;
-			}
-			else
-			{
-				double offset;
-				if (Map::Instance()->Collision(this, Direction::Right, speed, offset))
-				{
-					incrementX(offset);
-					break;
-				}
-				incrementX(speed);
-			}
-			break;
-		}
-		case SDLK_a:
-		{
-			if (isJumping || !m_onGround)
-			{
-				sideVelocityDirection = Direction::Left;
-				velocityX = speed;
-			}
-			else
-			{
-				double offset;
-				if (Map::Instance()->Collision(this, Direction::Left, speed, offset))
-				{
-					incrementX(offset);
-					break;
-				}
-				incrementX(-speed);
-			}
-			break;
-		}
 		case SDLK_RIGHT:
 		{
 			if (isJumping || !m_onGround)
@@ -224,6 +161,7 @@ void Player::moveEvent(SDL_Event& event)
 			}
 			break;
 		}
+		case SDLK_a:
 		case SDLK_LEFT:
 		{
 			if (isJumping || !m_onGround)
