@@ -1,4 +1,5 @@
 #include "../headers/BadTurtle.h"
+#include "../headers/World.h"
 #include <string>
 #include "Map.h"
 
@@ -50,10 +51,6 @@ void BadTurtle::init(std::string & textureSheet, SDL_Renderer * ren, Cordinates 
 void BadTurtle::Update()
 {
 	Move();
-	/*if (CheckForReceivedDamage())
-	{
-		std::cout << "RECEIVED DAMAGED" << std::endl;
-	}*/
 	GameObject::Update();
 }
 
@@ -107,11 +104,6 @@ void BadTurtle::Move()
 	}
 }
 
-bool BadTurtle::CheckForReceivedDamage()
-{
-	return false;
-}
-
 const CollisionType BadTurtle::getCollisionTypeWith(const Direction& direction, bool onGround)
 {
 	if (onGround)
@@ -123,6 +115,7 @@ const CollisionType BadTurtle::getCollisionTypeWith(const Direction& direction, 
 	{
 	case(Direction::Down):
 	{
+		World::Instance()->PlayerJump();
 		return CollisionType::ReceiveDamage;
 	}
 	case(Direction::Right):

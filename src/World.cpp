@@ -165,11 +165,6 @@ bool World::Collision(const SDL_Rect& dest1, const SDL_Rect& dest2)
 	}
 }
 
-bool World::GetPlayerDied()
-{
-	return playerDied;
-}
-
 bool World::InTheTextArea(int x, int y)
 {
 	SDL_Rect temp;
