@@ -24,6 +24,9 @@ private:
 
 	void DrawLives(SDL_Renderer*);
 	void ValidatePosition();
+
+	void writingMove(SDL_Event &event);
+	void moveEvent(SDL_Event& event);
 public:
 	Player();
 	Player(const tinyxml2::XMLElement*, SDL_Renderer* ren);
@@ -33,11 +36,9 @@ public:
 
 	void init(std::string &textureSheet, SDL_Renderer* ren, Cordinates cords, unsigned int heigthPartsCount, unsigned int widthPartsCount);
 	void handleEvent(SDL_Event &event);
-	void writingMove(SDL_Event &event);
-	void checkTheMouseCords(SDL_Event &event);
-	void moveEvent(SDL_Event& event);
 	void Update() override;
 	void Render(SDL_Renderer*) override;
+	void Jump();
 
 	void IncreaseLives(int);
 	void DecreaseLives(int);
