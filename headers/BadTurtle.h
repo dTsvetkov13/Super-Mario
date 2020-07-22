@@ -6,7 +6,6 @@ class BadTurtle :
 	public Enemy
 {
 private:
-	bool CheckForReceivedDamage();
 	double speed = 1;
 	Direction direction;
 	double leftEdge;

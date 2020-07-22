@@ -36,11 +36,13 @@ public:
 	void setShowTextArea(bool b) { showTextArea = b; }
 	void drawTextArea(SDL_Renderer*);
 	void KillObject(const std::shared_ptr<UUID>&);
+	void PlayerJump() { player.get()->Jump(); }
 
 	bool PlayerCollision(const SDL_Rect&, const Direction&);
 	bool Collision(const SDL_Rect&, const SDL_Rect&);
-	bool GetPlayerDied();
+	bool GetPlayerDied() { return playerDied; }
 	bool InTheTextArea(int x, int y);
+	bool IsShowingTextArea() { return showTextArea; }
 
 	const std::string& GetPlayerText();
 };
