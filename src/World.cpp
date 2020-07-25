@@ -112,7 +112,7 @@ void World::drawTextArea(SDL_Renderer * ren)
 	}
 	else
 	{
-		t = "Please, click here to write text!";
+		t = "Please, click the key T to write text and Enter to stop writing text!";
 	}
 
 	TTF_Font* Sans = TTF_OpenFont("../assets/ttf/OpenSans-Italic.ttf", 10);
