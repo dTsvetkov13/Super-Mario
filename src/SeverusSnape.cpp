@@ -80,13 +80,13 @@ void SeverusSnape::Render(SDL_Renderer* ren)
 	GameObject::Render(ren);
 }
 
-void SeverusSnape::SayAPhrase(std::string&, SDL_Renderer* renderer)
+void SeverusSnape::SayAPhrase(std::string& text, SDL_Renderer* renderer)
 {
 	TTF_Font* Sans = TTF_OpenFont("../assets/ttf/OpenSans-Italic.ttf", 24);
 
 	SDL_Color White = { 255, 255, 255 };
 
-	SDL_Surface* surfaceMessage = TTF_RenderText_Solid(Sans, "After all this time?", White);
+	SDL_Surface* surfaceMessage = TTF_RenderText_Solid(Sans, text.c_str(), White);
 
 	SDL_Texture* Message = SDL_CreateTextureFromSurface(renderer, surfaceMessage);
 
